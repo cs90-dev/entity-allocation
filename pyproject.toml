@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ceviche"
+version = "0.1.0"
+description = "PE Multi-Entity Expense Allocation Tool"
+requires-python = ">=3.9"
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.0",
+    "sqlalchemy>=2.0",
+    "pyyaml>=6.0",
+    "anthropic>=0.30",
+    "python-dateutil>=2.8",
+]
+
+[project.scripts]
+ceviche = "ceviche.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

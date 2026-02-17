@@ -1,0 +1,9 @@
+fastapi>=0.100
+uvicorn>=0.20
+sqlalchemy>=2.0
+pyyaml>=6.0
+python-multipart>=0.0.6
+typer>=0.9
+rich>=13.0
+python-dateutil>=2.8
+anthropic>=0.30

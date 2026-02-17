@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entity Allocation — PE Expense Allocation</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <h1>Entity Allocation</h1>
+                <div class="subtitle">PE Expense Manager</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Overview</div>
+                <a class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Manage</div>
+                <a class="nav-item" data-page="expenses" onclick="navigate('expenses')">
+                    <span class="icon">💰</span> Expenses
+                </a>
+                <a class="nav-item" data-page="allocations" onclick="navigate('allocations')">
+                    <span class="icon">⚖️</span> Allocations
+                </a>
+                <a class="nav-item" data-page="entities" onclick="navigate('entities')">
+                    <span class="icon">🏢</span> Entities
+                </a>
+                <a class="nav-item" data-page="policies" onclick="navigate('policies')">
+                    <span class="icon">📋</span> Policies
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-label">Reports</div>
+                <a class="nav-item" data-page="journal" onclick="navigate('journal')">
+                    <span class="icon">📒</span> Journal Entries
+                </a>
+                <a class="nav-item" data-page="compliance" onclick="navigate('compliance')">
+                    <span class="icon">🛡️</span> LPA Compliance
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <div class="loading-center"><div class="spinner"></div></div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModalOverlay(event)">
+        <div class="modal" id="modal-content"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

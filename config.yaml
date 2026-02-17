@@ -1,0 +1,101 @@
+# Entity Allocation Configuration - Apex Capital Management
+# PE Multi-Entity Expense Allocation Tool
+
+firm:
+  name: "Apex Capital Management"
+  gp_entity: "Apex Capital Management LLC"
+
+database:
+  path: "~/.ceviche/ceviche.db"
+
+defaults:
+  currency: "USD"
+  min_allocation_threshold: 0.01
+  default_allocation_method: "pro_rata_aum"
+
+expense_categories:
+  - legal
+  - accounting
+  - travel
+  - compliance
+  - insurance
+  - technology
+  - rent
+  - personnel
+  - deal_expense
+  - broken_deal
+  - fund_formation
+  - organizational
+  - due_diligence
+  - consulting
+  - other
+
+# GL Account mappings
+gl_accounts:
+  legal: { code: "6100", name: "Legal Fees" }
+  accounting: { code: "6200", name: "Accounting & Audit" }
+  travel: { code: "6300", name: "Travel & Entertainment" }
+  compliance: { code: "6400", name: "Compliance & Regulatory" }
+  insurance: { code: "6500", name: "Insurance" }
+  technology: { code: "6600", name: "Technology & Software" }
+  rent: { code: "6700", name: "Rent & Occupancy" }
+  personnel: { code: "6800", name: "Personnel & Compensation" }
+  deal_expense: { code: "6900", name: "Deal Expenses" }
+  broken_deal: { code: "6950", name: "Broken Deal Costs" }
+  fund_formation: { code: "7100", name: "Fund Formation" }
+  organizational: { code: "7200", name: "Organizational Expenses" }
+  due_diligence: { code: "7300", name: "Due Diligence" }
+  consulting: { code: "7400", name: "Consulting Fees" }
+  other: { code: "7900", name: "Other Expenses" }
+
+# Intercompany accounts
+intercompany:
+  receivable: { code: "1500", name: "Intercompany Receivable" }
+  payable: { code: "2500", name: "Intercompany Payable" }
+
+# LPA Compliance Rules
+lpa_rules:
+  funds:
+    "Apex Capital Partners I LP":
+      management_fee_cap_pct: 2.0
+      org_expense_cap: 500000
+      broken_deal_limit: 1000000
+      annual_expense_cap: 5000000
+      fee_offset_pct: 80
+
+    "Apex Capital Partners II LP":
+      management_fee_cap_pct: 2.0
+      org_expense_cap: 750000
+      broken_deal_limit: 2000000
+      annual_expense_cap: 10000000
+      fee_offset_pct: 100
+
+    "Apex Capital Partners III LP":
+      management_fee_cap_pct: 1.75
+      org_expense_cap: 1000000
+      broken_deal_limit: 3000000
+      annual_expense_cap: 15000000
+      fee_offset_pct: 100
+
+# Default allocation policy mappings (category -> methodology)
+default_policy_mappings:
+  rent: pro_rata_aum
+  technology: pro_rata_aum
+  insurance: pro_rata_aum
+  personnel: headcount
+  legal: pro_rata_committed
+  accounting: pro_rata_aum
+  travel: direct
+  compliance: pro_rata_aum
+  deal_expense: deal_specific
+  broken_deal: deal_specific
+  fund_formation: direct
+  organizational: direct
+  due_diligence: deal_specific
+  consulting: pro_rata_aum
+  other: pro_rata_aum
+
+# Logging
+logging:
+  level: INFO
+  audit_log_path: "~/.ceviche/audit.log"
