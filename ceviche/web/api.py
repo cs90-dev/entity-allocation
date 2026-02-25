@@ -14,7 +14,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from ceviche.db.database import get_session, init_db, get_engine
 from ceviche.models.entities import Entity, EntityType, EntityStatus
@@ -65,18 +64,27 @@ def get_config():
 
 def _auto_init():
     """Auto-initialize DB and seed data on first run (for cloud deploys)."""
-    config = get_config()
-    db_path = os.path.expanduser(config.get("database", {}).get("path", "~/.ceviche/ceviche.db"))
-    os.environ.setdefault("CEVICHE_DB", db_path)
-    if not os.path.exists(db_path):
-        from ceviche.db.database import init_db as _init_db
-        _init_db(db_path)
-        session = get_session(db_path)
+    try:
+        config = get_config()
+        default_path = config.get("database", {}).get("path", "~/.ceviche/ceviche.db")
+        # On cloud platforms, use /tmp if home dir path fails
+        db_path = os.path.expanduser(default_path)
         try:
-            from ceviche.tests.fixtures.sample_data import load_seed_data
-            load_seed_data(session)
-        finally:
-            session.close()
+            os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        except OSError:
+            db_path = "/tmp/ceviche.db"
+        os.environ["CEVICHE_DB"] = db_path
+        if not os.path.exists(db_path):
+            from ceviche.db.database import init_db as _init_db
+            _init_db(db_path)
+            session = get_session(db_path)
+            try:
+                from ceviche.tests.fixtures.sample_data import load_seed_data
+                load_seed_data(session)
+            finally:
+                session.close()
+    except Exception as e:
+        print(f"[auto_init] Warning: {e}", file=sys.stderr)
 
 _auto_init()
 
