@@ -20,5 +20,5 @@ dependencies = [
 ceviche = "ceviche.cli:main"
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["ceviche/tests"]
 pythonpath = ["."]
