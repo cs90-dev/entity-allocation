@@ -2,8 +2,8 @@ services:
   - type: web
     name: entity-allocation
     runtime: python
-    buildCommand: pip install -r requirements.txt && pip install .
-    startCommand: python -m uvicorn ceviche.web.api:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install -r requirements.txt
+    startCommand: PYTHONPATH=/opt/render/project/src python -m uvicorn ceviche.web.api:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.0"
